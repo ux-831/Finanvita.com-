@@ -1,0 +1,2577 @@
+     
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FinanVita - Smart Financial Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles & Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1A1A2E; /* Deep Dark Blue Background */
+            line-height: 1.6;
+            color: #E0E0E0; /* Light text for dark background */
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        /* Modern Color Palette - Dark Theme Focus */
+        :root {
+            --primary-accent: #0F3460; /* Slightly lighter deep blue */
+            --secondary-accent: #E94560; /* Vibrant Red/Pink for highlights */
+            --text-light: #E0E0E0;
+            --text-medium: #A0A0A0;
+            --bg-dark: #1A1A2E;
+            --bg-medium: #2C3C5B; /* For card backgrounds */
+            --border-color: rgba(255, 255, 255, 0.1); /* Subtle white for borders */
+            --shadow-dark: rgba(0, 0, 0, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.05); /* Very light translucent white */
+            --glass-border: rgba(255, 255, 255, 0.15); /* Slightly stronger border */
+            --button-glow: rgba(233, 69, 96, 0.4); /* Glow for interactive elements */
+        }
+
+        /* --- Header & Hero Section --- */
+        header {
+            background: linear-gradient(145deg, var(--bg-dark) 0%, #0A0A1A 100%); /* Deeper gradient */
+            color: var(--text-light);
+            padding: 25px 30px;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px; /* Tall hero section */
+            overflow: hidden;
+            box-shadow: 0 8px 30px var(--shadow-dark);
+            border-bottom: 1px solid var(--primary-accent); /* Subtle bottom border */
+        }
+
+        .header-content {
+            z-index: 10;
+            position: relative;
+        }
+
+        header img {
+            max-height: 140px; /* Larger, more prominent logo */
+            margin-bottom: 20px;
+            border-radius: 15px; /* Softer rounded corners */
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            filter: brightness(1.1); /* Slightly brighter logo */
+        }
+        header img:hover {
+            transform: scale(1.08) rotateY(5deg);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        }
+        header p {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8em; /* Larger, bolder tagline */
+            margin: 0;
+            font-weight: 600;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5); /* Deeper text shadow */
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            line-height: 1.3;
+        }
+
+        /* Animated Background Dots */
+        .animated-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .dot {
+            position: absolute;
+            background: rgba(233, 69, 96, 0.2); /* Soft red dots */
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatAndFade 15s infinite ease-in-out;
+        }
+        .dot:nth-child(1) { width: 60px; height: 60px; top: 10%; left: 20%; animation-delay: 0s; }
+        .dot:nth-child(2) { width: 40px; height: 40px; top: 50%; left: 80%; animation-delay: 3s; }
+        .dot:nth-child(3) { width: 80px; height: 80px; top: 70%; left: 40%; animation-delay: 6s; }
+        .dot:nth-child(4) { width: 30px; height: 30px; top: 20%; left: 60%; animation-delay: 9s; }
+        .dot:nth-child(5) { width: 70px; height: 70px; top: 85%; left: 10%; animation-delay: 12s; }
+
+        @keyframes floatAndFade {
+            0% { transform: translateY(0) scale(0); opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+        }
+
+
+        /* --- Menu Icon & Side Navigation --- */
+        .menu-icon {
+            position: absolute;
+            left: 25px;
+            top: 25px;
+            width: 35px; /* Larger icon */
+            height: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1000;
+            padding: 5px;
+        }
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: var(--secondary-accent); /* Vibrant red/pink bars */
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bounce transition */
+        }
+        .menu-icon.active .top-bar {
+            transform: rotate(45deg) translate(8px, 8px);
+            background: var(--text-light); /* White when active */
+        }
+        .menu-icon.active .middle-bar {
+            opacity: 0;
+            transform: translateX(-30px); /* Slide out */
+        }
+        .menu-icon.active .bottom-bar {
+            transform: rotate(-45deg) translate(8px, -8px);
+            background: var(--text-light); /* White when active */
+        }
+
+        .side-nav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            background-color: rgba(26, 26, 46, 0.95); /* Semi-transparent dark overlay */
+            backdrop-filter: blur(10px); /* Glassmorphism effect */
+            overflow-x: hidden;
+            transition: 0.6s cubic-bezier(0.86, 0, 0.07, 1); /* Smooth and fast */
+            padding-top: 100px;
+            box-shadow: 8px 0 30px var(--shadow-dark);
+            display: flex;
+            flex-direction: column;
+        }
+        .side-nav.open {
+            width: 320px; /* Wider menu */
+        }
+        .side-nav a {
+            padding: 20px 40px;
+            text-decoration: none;
+            font-size: 1.4em;
+            color: var(--text-medium);
+            display: block;
+            transition: 0.4s ease-in-out;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255,255,255,0.05); /* Very subtle separator */
+            position: relative;
+            overflow: hidden;
+        }
+        .side-nav a:last-child {
+             border-bottom: none;
+        }
+        .side-nav a::before { /* Animated underline/border */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--secondary-accent);
+            transition: width 0.3s ease-out;
+        }
+        .side-nav a:hover {
+            color: var(--text-light);
+            background-color: rgba(255,255,255,0.05); /* Subtle hover background */
+            transform: translateX(10px);
+            letter-spacing: 0.8px;
+        }
+        .side-nav a:hover::before {
+            width: 100%;
+        }
+        .side-nav .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 45px; /* Larger close button */
+            color: var(--secondary-accent); /* Red/pink cross */
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .side-nav .close-btn:hover {
+            color: var(--text-light);
+            transform: rotate(90deg);
+        }
+
+        /* --- Main Content Container --- */
+        .container {
+            max-width: 1300px; /* Wider container for more content */
+            margin: 60px auto; /* More spacing */
+            padding: 0 40px;
+        }
+        
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            text-align: center;
+            color: var(--secondary-accent); /* Vibrant red/pink for main headings */
+            margin-bottom: 70px;
+            font-size: 3.5em; /* Very large heading */
+            position: relative;
+            padding-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(233, 69, 96, 0.2);
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 150px; /* Wider, prominent underline */
+            height: 6px;
+            background: linear-gradient(90deg, transparent, var(--secondary-accent), transparent); /* Gradient underline */
+            border-radius: 3px;
+        }
+
+        /* --- Loan List & Items (Glassmorphism Cards) --- */
+        .loan-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Larger min-width for cards */
+            gap: 40px; /* More gap between cards */
+            margin-bottom: 70px;
+        }
+        .loan-item {
+            background: var(--glass-bg); /* Translucent background */
+            backdrop-filter: blur(8px); /* Blur effect */
+            border: 1px solid var(--glass-border); /* Subtle glass border */
+            border-radius: 20px; /* More rounded */
+            padding: 40px; /* More padding */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); /* Deeper shadow */
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease, background 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        .loan-item::before { /* Animated background blob on hover */
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(233, 69, 96, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+            opacity: 0;
+            z-index: -1;
+            transform: scale(0.5);
+        }
+        .loan-item:hover {
+            transform: translateY(-15px) scale(1.02); /* More pronounced lift */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 20px var(--button-glow); /* Enhanced shadow with glow */
+            background: rgba(255, 255, 255, 0.08); /* Slightly more opaque on hover */
+            border-color: var(--secondary-accent); /* Accent border on hover */
+        }
+        .loan-item:hover::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .loan-item h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: var(--secondary-accent); /* Vibrant red/pink for card titles */
+            font-size: 2.2em; /* Larger heading */
+            border-bottom: 2px solid rgba(255,255,255,0.1); /* Subtle but firm border */
+            padding-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+        .loan-item p {
+            margin: 10px 0 30px 0;
+            color: var(--text-medium); /* Slightly subdued text */
+            font-size: 1.1em;
+            flex-grow: 1;
+        }
+        .loan-item a.button {
+            background-color: var(--secondary-accent);
+            color: var(--white); /* Use white for button text */
+            border: none;
+            padding: 16px 30px; /* Larger, more prominent button */
+            border-radius: 10px; /* More rounded */
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            margin-top: auto;
+            font-size: 1.05em;
+            align-self: flex-start; /* Align to left */
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .loan-item a.button:hover {
+            background-color: #C73B54; /* Darker red/pink on hover */
+            transform: translateY(-5px); /* More pronounced lift */
+            box-shadow: 0 8px 25px var(--button-glow); /* Stronger glow */
+        }
+        .loan-item a.button::after { /* Ripple effect on hover */
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+        }
+        .loan-item a.button:active::after { /* Activate ripple on click */
+            transform: translate(-50%, -50%) scale(20);
+            opacity: 1;
+            transition: 0s; /* Instant start */
+        }
+
+
+        /* --- Styles for hidden loan details sections (Glassmorphism) --- */
+        .loan-details-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px); /* Stronger blur */
+            padding: 50px; /* More padding */
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4); /* Deeper shadow */
+            margin-bottom: 50px;
+            border: 1px solid var(--glass-border);
+            display: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out, border-color 0.4s ease;
+        }
+        .loan-details-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .loan-details-content:hover {
+             border-color: var(--secondary-accent); /* Accent border on hover */
+        }
+
+        .loan-detail-section {
+            margin-bottom: 45px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08); /* Light separator */
+        }
+        .loan-detail-section:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+        .loan-details-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--secondary-accent);
+            font-size: 2.5em; /* Larger heading */
+            margin-top: 0;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(233, 69, 96, 0.2); /* Subtle accent border */
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .loan-details-content ul {
+            list-style: none;
+            margin-left: 0;
+            margin-bottom: 30px;
+            padding-left: 30px;
+        }
+        .loan-details-content ul li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+            color: var(--text-light);
+            font-size: 1.1em;
+        }
+        .loan-details-content ul li::before {
+            content: '✓'; /* Custom checkmark bullet point */
+            color: #4CAF50; /* Green checkmark */
+            position: absolute;
+            left: 0;
+            font-size: 1.3em;
+            line-height: 1;
+            font-weight: bold;
+        }
+        .loan-details-content p {
+            margin-bottom: 20px;
+            color: var(--text-medium);
+            text-align: justify;
+            font-size: 1.08em;
+            line-height: 1.7;
+        }
+        .loan-details-content p strong {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        .loan-details-content ol {
+            padding-left: 25px;
+            margin-bottom: 25px;
+            color: var(--text-medium);
+            font-size: 1.08em;
+        }
+        .loan-details-content ol li {
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .loan-details-content table {
+            width: 100%;
+            border-collapse: separate; /* For rounded corners */
+            border-spacing: 0;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            font-size: 1em;
+            border-radius: 12px;
+            overflow: hidden; /* Ensures rounded corners are visible */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .loan-details-content table th, .loan-details-content table td {
+            border: 1px solid rgba(255, 255, 255, 0.08); /* Lighter border for dark theme */
+            padding: 18px 22px; /* More padding */
+            text-align: left;
+            color: var(--text-light);
+        }
+        .loan-details-content table th {
+            background-color: var(--primary-accent); /* Deep blue for table header */
+            color: var(--text-light);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .loan-details-content table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.03); /* Subtle stripe effect */
+        }
+        .loan-details-content table td {
+            background-color: rgba(255, 255, 255, 0.01); /* Even lighter for cells */
+        }
+
+
+        /* --- Application Form Styling (Neumorphism/Soft UI) --- */
+        .application-form {
+            background-color: #262640; /* Slightly lighter dark background */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 8px 8px 20px rgba(0,0,0,0.4), -8px -8px 20px rgba(255,255,255,0.05); /* Neumorphic shadow */
+            margin-top: 50px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .application-form h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--secondary-accent);
+            font-size: 2.2em;
+            margin-top: 0;
+            margin-bottom: 35px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .application-form label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: var(--text-light);
+            font-size: 1.05em;
+        }
+        .application-form input[type="text"],
+        .application-form input[type="email"],
+        .application-form input[type="tel"],
+        .application-form input[type="number"],
+        .application-form select,
+        .application-form textarea {
+            width: calc(100% - 28px); /* Adjusted for padding */
+            padding: 15px; /* More padding */
+            margin-bottom: 25px; /* More space */
+            border: none; /* No visible border initially */
+            border-radius: 10px; /* More rounded */
+            font-size: 1.05em;
+            box-sizing: border-box;
+            background-color: #3B3B5E; /* Darker input background */
+            color: var(--text-light);
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.3), inset -2px -2px 5px rgba(255,255,255,0.05); /* Inset neumorphic shadow */
+            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        .application-form input:focus,
+        .application-form select:focus,
+        .application-form textarea:focus {
+            background-color: #4A4A70; /* Slightly lighter on focus */
+            box-shadow: inset 1px 1px 3px rgba(0,0,0,0.4), inset -1px -1px 3px rgba(255,255,255,0.08), 0 0 0 3px var(--secondary-accent); /* Accent outline on focus */
+            outline: none;
+        }
+        .application-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .application-form button[type="submit"] {
+            background-color: var(--secondary-accent);
+            color: var(--white);
+            border: none;
+            padding: 18px 35px; /* Larger, more impactful button */
+            border-radius: 12px; /* Rounded */
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            font-size: 1.15em;
+            width: auto;
+            display: block;
+            margin: 30px auto 0;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3), -5px -5px 15px rgba(255,255,255,0.03); /* Neumorphic button shadow */
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .application-form button[type="submit"]:hover {
+            background-color: #C73B54;
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 25px var(--button-glow), -8px -8px 25px rgba(255,255,255,0.05); /* Stronger neumorphic glow */
+        }
+        .application-form button[type="submit"]:active {
+            transform: translateY(0);
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.3), inset -2px -2px 5px rgba(255,255,255,0.05); /* Inset on click */
+        }
+
+        /* --- EMI Calculator Styles --- */
+        .emi-calculator {
+            background-color: #262640; /* Same as form for consistency */
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-top: 40px;
+            margin-bottom: 40px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3), -5px -5px 15px rgba(255,255,255,0.05); /* Neumorphic shadow */
+        }
+        .emi-calculator h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--secondary-accent);
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+            font-weight: 600;
+        }
+        .emi-calculator label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text-light);
+            font-size: 1em;
+        }
+        .emi-calculator input[type="number"] {
+            width: calc(100% - 28px);
+            padding: 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05em;
+            box-sizing: border-box;
+            background-color: #3B3B5E;
+            color: var(--text-light);
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.3), inset -2px -2px 5px rgba(255,255,255,0.05);
+            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        .emi-calculator input[type="number"]:focus {
+            background-color: #4A4A70;
+            box-shadow: inset 1px 1px 3px rgba(0,0,0,0.4), inset -1px -1px 3px rgba(255,255,255,0.08), 0 0 0 3px var(--secondary-accent);
+            outline: none;
+        }
+        .emi-calculator button {
+            background-color: var(--primary-accent); /* Primary blue for calculator button */
+            color: var(--white);
+            border: none;
+            padding: 16px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            display: block;
+            width: 100%;
+            font-size: 1.05em;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.2), -3px -3px 10px rgba(255,255,255,0.03);
+            text-transform: uppercase;
+        }
+        .emi-calculator button:hover {
+            background-color: #0F4580; /* Darker blue on hover */
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3), -5px -5px 15px rgba(255,255,255,0.05);
+        }
+        .emi-calculator button:active {
+            transform: translateY(0);
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.3), inset -2px -2px 5px rgba(255,255,255,0.05);
+        }
+        .emi-result {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: rgba(76, 175, 80, 0.1); /* Subtle green tint */
+            border: 1px solid #4CAF50;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.3em;
+            color: #4CAF50; /* Green result text */
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.5s ease-out;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        .emi-result.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .emi-result span {
+            color: #76FF03; /* Bright green for result value */
+            font-size: 1.4em;
+            margin-left: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            text-shadow: 0 0 8px rgba(118, 255, 3, 0.3);
+        }
+
+        /* --- Go Back Button --- */
+        .back-button {
+            background: var(--glass-bg);
+            backdrop-filter: blur(5px);
+            color: var(--secondary-accent);
+            border: 1px solid var(--glass-border);
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s ease;
+            margin-bottom: 40px;
+            display: inline-flex; /* Use flex to align icon and text */
+            align-items: center;
+            text-decoration: none;
+            font-size: 0.98em;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .back-button:hover {
+            background-color: var(--secondary-accent);
+            color: var(--white);
+            border-color: var(--secondary-accent);
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.3);
+        }
+        .back-button::before {
+            content: '←'; /* Arrow icon */
+            margin-right: 8px;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        /* --- Footer styles --- */
+        footer {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #0A0A1A 100%);
+            color: var(--text-medium);
+            text-align: center;
+            padding: 40px 30px;
+            margin-top: 70px;
+            font-size: 0.9em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 -8px 30px var(--shadow-dark);
+            border-top: 1px solid var(--primary-accent);
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        footer a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin: 0 20px;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+            font-weight: 500;
+        }
+        footer a:hover {
+            color: var(--secondary-accent);
+            text-decoration: underline;
+        }
+        .contact-info {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            width: 100%;
+        }
+        .contact-info p {
+            margin: 8px 0;
+            color: var(--text-medium);
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 1200px) {
+            .container {
+                padding: 0 30px;
+            }
+            .loan-list {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+            }
+        }
+
+        @media screen and (max-width: 992px) {
+            header {
+                min-height: 200px;
+                padding: 20px 25px;
+            }
+            header img {
+                max-height: 100px;
+                margin-bottom: 15px;
+            }
+            header p {
+                font-size: 1.5em;
+            }
+            h2 {
+                font-size: 3em;
+                margin-bottom: 60px;
+            }
+            .loan-item {
+                padding: 30px;
+            }
+            .loan-item h3 {
+                font-size: 2em;
+            }
+            .loan-item p {
+                font-size: 1em;
+            }
+            .loan-details-content {
+                padding: 40px;
+            }
+            .loan-details-content h3 {
+                font-size: 2.2em;
+            }
+            .application-form, .emi-calculator {
+                padding: 30px;
+            }
+            .application-form h4, .emi-calculator h4 {
+                font-size: 2em;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            header {
+                min-height: 180px;
+                padding: 15px 20px;
+            }
+            header img {
+                max-height: 80px;
+            }
+            header p {
+                font-size: 1.2em;
+            }
+            .menu-icon {
+                left: 15px;
+                top: 15px;
+                width: 30px;
+                height: 20px;
+            }
+            .side-nav.open {
+                width: 280px;
+            }
+            .side-nav a {
+                font-size: 1.2em;
+                padding: 18px 30px;
+            }
+            .side-nav .close-btn {
+                font-size: 40px;
+                right: 20px;
+            }
+            .container {
+                padding: 0 20px;
+                margin: 40px auto;
+            }
+            h2 {
+                font-size: 2.5em;
+                margin-bottom: 50px;
+            }
+            h2::after {
+                width: 120px;
+                height: 5px;
+            }
+            .loan-list {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 25px;
+            }
+            .loan-item {
+                padding: 25px;
+                border-radius: 18px;
+            }
+            .loan-item h3 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+                padding-bottom: 12px;
+            }
+            .loan-item p {
+                font-size: 0.95em;
+            }
+            .loan-item a.button {
+                padding: 14px 25px;
+                font-size: 1em;
+            }
+            .loan-details-content {
+                padding: 35px;
+                border-radius: 20px;
+            }
+            .loan-details-content h3 {
+                font-size: 2em;
+                margin-bottom: 25px;
+            }
+            .loan-details-content ul li {
+                font-size: 1em;
+            }
+            .loan-details-content p {
+                font-size: 1em;
+            }
+            .loan-details-content table th, .loan-details-content table td {
+                padding: 15px 18px;
+                font-size: 0.95em;
+            }
+            .application-form, .emi-calculator {
+                padding: 25px;
+                border-radius: 18px;
+            }
+            .application-form h4, .emi-calculator h4 {
+                font-size: 1.8em;
+                margin-bottom: 30px;
+            }
+            .application-form input, .application-form select, .application-form textarea,
+            .emi-calculator input {
+                padding: 12px;
+                font-size: 1em;
+            }
+            .application-form button[type="submit"], .emi-calculator button {
+                padding: 15px 28px;
+                font-size: 1.05em;
+            }
+            .emi-result {
+                font-size: 1.2em;
+                padding: 20px;
+            }
+            .emi-result span {
+                font-size: 1.3em;
+            }
+            .back-button {
+                padding: 10px 18px;
+                font-size: 0.9em;
+            }
+            footer {
+                padding: 30px 20px;
+                margin-top: 50px;
+            }
+            footer a {
+                margin: 0 15px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            header {
+                min-height: 150px;
+                padding: 10px 15px;
+            }
+            header img {
+                max-height: 70px;
+                margin-bottom: 10px;
+            }
+            header p {
+                font-size: 1em;
+            }
+            .menu-icon {
+                left: 10px;
+                top: 10px;
+                width: 25px;
+                height: 18px;
+            }
+            .side-nav.open {
+                width: 240px;
+            }
+            .side-nav a {
+                font-size: 1.1em;
+                padding: 15px 25px;
+            }
+            .side-nav .close-btn {
+                font-size: 36px;
+                right: 15px;
+            }
+            .container {
+                margin: 30px auto;
+                padding: 0 15px;
+            }
+            h2 {
+                font-size: 2em;
+                margin-bottom: 40px;
+            }
+            h2::after {
+                width: 90px;
+                height: 4px;
+            }
+            .loan-list {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .loan-item {
+                padding: 20px;
+                border-radius: 15px;
+            }
+            .loan-item h3 {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+            }
+            .loan-item p {
+                font-size: 0.9em;
+                margin-bottom: 20px;
+            }
+            .loan-item a.button {
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+            .loan-details-content {
+                padding: 25px;
+                border-radius: 15px;
+            }
+            .loan-details-content h3 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            .loan-details-content ul li {
+                font-size: 0.95em;
+            }
+            .loan-details-content p {
+                font-size: 0.95em;
+            }
+            .loan-details-content table th, .loan-details-content table td {
+                padding: 12px 15px;
+                font-size: 0.85em;
+            }
+            .application-form, .emi-calculator {
+                padding: 20px;
+            }
+            .application-form h4, .emi-calculator h4 {
+                font-size: 1.6em;
+                margin-bottom: 20px;
+            }
+            .application-form input, .application-form select, .application-form textarea,
+            .emi-calculator input {
+                padding: 10px;
+                font-size: 0.95em;
+                margin-bottom: 18px;
+            }
+            .application-form button[type="submit"], .emi-calculator button {
+                padding: 12px 22px;
+                font-size: 0.95em;
+            }
+            .emi-result {
+                font-size: 1.1em;
+                padding: 15px;
+            }
+            .emi-result span {
+                font-size: 1.2em;
+            }
+            .back-button {
+                padding: 8px 15px;
+                font-size: 0.85em;
+            }
+            footer {
+                padding: 25px 15px;
+                font-size: 0.8em;
+            }
+            footer a {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sideNav" class="side-nav">
+        <a href="javascript:void(0)" class="close-btn">&times;</a>
+        <a href="#about-us" onclick="closeSideNav();">About Us</a>
+        <a href="#contact-footer" onclick="closeSideNav();">Contact Us</a>
+        <a href="#agent-advisor" onclick="closeSideNav();">Apply for Agent and Advisor</a>
+    </div>
+
+    <header>
+        <div class="animated-background">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="menu-icon" id="menuIcon">
+            <span class="top-bar"></span>
+            <span class="middle-bar"></span>
+            <span class="bottom-bar"></span>
+        </div>
+        <div class="header-content">
+            <img src="https://iili.io/Fvoj299.md.jpg" alt="FinanVita Logo">
+            <p>Your Future, Financed. With Clarity.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="container">
+            <h2>Our Smart Financial Solutions</h2>
+            <div class="loan-list">
+                <div class="loan-item">
+                    <h3>Personal Loan</h3>
+                    <p>Fulfill your personal needs with quick and easy personal loans at competitive interest rates.</p>
+                    <a href="#personal" class="button">Check Eligibility</a>
+                </div>
+
+                <div class="loan-item">
+                    <h3>Home Loan</h3>
+                    <p>Buy your dream home with customized EMI options and flexible repayment plans.</p>
+                    <a href="#home" class="button">Check Eligibility</a>
+                </div>
+
+                <div class="loan-item">
+                    <h3>Business Loan</h3>
+                    <p>Fuel your business growth with collateral-free business loans tailored for entrepreneurs.</p>
+                    <a href="#business" class="button">Check Eligibility</a>
+                </div>
+
+                <div class="loan-item">
+                    <h3>Used Car Loan</h3>
+                    <p>Finance your pre-owned vehicle easily with our quick used car loan approval process.</p>
+                    <a href="#used-car" class="button">Check Eligibility</a>
+                </div>
+
+                <div class="loan-item">
+                    <h3>Loan Against Property</h3>
+                    <p>Unlock your property’s value to meet personal or business financial needs with lower EMIs.</p>
+                    <a href="#lap" class="button">Check Eligibility</a>
+                </div>
+
+                <div class="loan-item">
+                    <h3>Car Loan</h3>
+                    <p>Buy a new car with attractive interest rates and instant approvals.</p>
+                    <a href="#car" class="button">Check Eligibility</a>
+                </div>
+
+                <div class="loan-item">
+                    <h3>Education Loan</h3>
+                    <p>Make higher education affordable with flexible student loan options for India and abroad.</p>
+                    <a href="#education" class="button">Check Eligibility</a>
+                </div>
+
+                <div class="loan-item">
+                    <h3>Gold Loan</h3>
+                    <p>Get instant cash by pledging your gold jewellery at low interest rates.</p>
+                    <a href="#gold" class="button">Check Eligibility</a>
+                </div>
+
+                <div class="loan-item">
+                    <h3>Credit Card</h3>
+                    <p>Apply for feature-packed credit cards with cashback, travel, and reward benefits.</p>
+                    <a href="#credit-card" class="button">Check Eligibility</a>
+                </div>
+
+                <div class="loan-item">
+                    <h3>Balance Transfer</h3>
+                    <p>Transfer your existing loan to save more with lower interest and better terms.</p>
+                    <a href="#balance-transfer" class="button">Check Eligibility</a>
+                </div>
+
+                <div class="loan-item">
+                    <h3>Professional Loan</h3>
+                    <p>Exclusive loan offers for doctors, chartered accountants, and other working professionals.</p>
+                    <a href="#professional" class="button">Check Eligibility</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" id="loan-details-sections">
+            <div class="loan-details-content" id="personal">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>FinanVita Personal Loan: Unlock Your Financial Dreams</h2>
+                <div class="loan-detail-section">
+                    <h3>Overview of Personal Loan</h3>
+                    <p>A **Personal Loan** from FinanVita is an unsecured loan that helps you meet your urgent financial needs without requiring any collateral. Whether it's for a dream vacation, a wedding, medical emergencies, home renovation, or consolidating existing debts, a personal loan offers quick access to funds with minimal documentation and flexible repayment options.</p>
+                    <p>With FinanVita, you can expect a transparent process, competitive interest rates, and quick disbursal directly into your bank account. Our goal is to empower your aspirations with timely financial support.</p>
+                </div>
+
+                <div class="loan-detail-section">
+                    <h3>Key Features & Benefits:</h3>
+                    <ul>
+                        <li>**No Collateral Required:** Get a loan without pledging any asset like property or gold.</li>
+                        <li>**Quick Approval & Disbursal:** Experience rapid processing, with funds often disbursed within 24-48 hours post-approval.</li>
+                        <li>**Flexible Loan Amounts:** Borrow anywhere from ₹50,000 up to ₹50 Lakhs, depending on your eligibility and financial profile.</li>
+                        <li>**Customizable Tenure:** Choose a repayment period ranging from 12 months to 60 months (1 to 5 years), allowing you to manage your EMIs comfortably.</li>
+                        <li>**Competitive Interest Rates:** Benefit from attractive interest rates that start from as low as 10.50% p.a., based on your creditworthiness.</li>
+                        <li>**Minimal Documentation:** Our streamlined process requires fewer documents, making the application hassle-free.</li>
+                        <li>**Multi-Purpose Use:** Use the funds for any personal requirement – no restrictions on end-use.</li>
+                        <li>**Transparent Process:** No hidden charges; all fees and charges are clearly communicated upfront.</li>
+                    </ul>
+                </div>
+
+                <div class="loan-detail-section">
+                    <h3>Personal Loan Eligibility Criteria:</h3>
+                    <p>To qualify for a FinanVita Personal Loan, applicants typically need to meet the following criteria:</p>
+                    <ul>
+                        <li>**Age:** Must be between 21 to 60 years old at the time of application.</li>
+                        <li>**Employment Type:**
+                            <ul>
+                                <li>**Salaried Individuals:** Employed in a reputed public or private sector company, or government organization.</li>
+                                <li>**Self-employed Individuals:** Professionals (Doctors, CAs, Architects) or non-professionals with a stable business and consistent income.</li>
+                            </ul>
+                        </li>
+                        <li>**Minimum Monthly Income:**
+                            <ul>
+                                <li>**Salaried:** A net monthly income of at least ₹15,000 (may vary based on city and lender).</li>
+                                <li>**Self-employed:** Stable business income with ITRs showing a consistent profit history for the last 2-3 years.</li>
+                            </ul>
+                        </li>
+                        <li>**Work Experience (Salaried):** Minimum 1-2 years of total work experience with at least 6 months to 1 year in the current organization.</li>
+                        <li>**Business Vintage (Self-employed):** Business must be operational for a minimum of 2-3 years.</li>
+                        <li>**CIBIL/Credit Score:** A healthy credit score (generally 700 or above) significantly improves your chances of approval and helps secure better interest rates.</li>
+                    </ul>
+                </div>
+
+                <div class="loan-detail-section">
+                    <h3>Documents Required for Personal Loan:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document Category</th>
+                                <th>Required Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**Identity Proof (Any One)**</td>
+                                <td>PAN Card, Aadhaar Card, Passport, Driving License, Voter ID.</td>
+                            </tr>
+                            <tr>
+                                <td>**Address Proof (Any One)**</td>
+                                <td>Aadhaar Card, Passport, Driving License, Utility Bills (Electricity, Gas, Water - not older than 3 months), Rent Agreement (if applicable).</td>
+                            </tr>
+                            <tr>
+                                <td>**Income Proof - Salaried**</td>
+                                <td>Latest 3 months Salary Slips, Bank Statement (last 6 months) showing salary credits, Latest Form 16 or Income Tax Returns.</td>
+                            </tr>
+                            <tr>
+                                <td>**Income Proof - Self-employed**</td>
+                                <td>Latest ITR with computation of income (for last 2-3 years), Bank Statement (last 6-12 months) of current and savings account, Balance Sheet & P&L account for last 2-3 years (audited/CA certified).</td>
+                            </tr>
+                            <tr>
+                                <td>**Business Proof (Self-employed)**</td>
+                                <td>Shop Act Establishment Certificate, GST Registration, Partnership Deed (if applicable), Proof of Business Address.</td>
+                            </tr>
+                            <tr>
+                                <td>**Other Documents**</td>
+                                <td>One passport-sized photograph.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="loan-detail-section">
+                    <h3>Understanding Personal Loan Interest Rates & Charges:</h3>
+                    <p>FinanVita offers competitive interest rates to make your personal loan affordable. The rates typically range from **10.50% to 24% per annum**, depending on various factors like your credit score, income, employment type, and the lender's policies.</p>
+                    <p>Other potential charges may include:</p>
+                    <ul>
+                        <li>**Processing Fee:** A one-time fee, usually 0.5% to 2.5% of the loan amount plus GST.</li>
+                        <li>**Pre-payment/Foreclosure Charges:** If you choose to repay your loan before its tenure, some lenders may levy a charge (typically 0% to 5% of the outstanding principal).</li>
+                        <li>**Late Payment Penalties:** Charges applied if EMI payments are delayed.</li>
+                        <li>**Stamp Duty Charges:** As per state laws.</li>
+                    </ul>
+                    <p>All charges will be clearly communicated to you during the application process.</p>
+                </div>
+
+                <div class="loan-detail-section">
+                    <h3>Personal Loan EMI Calculator:</h3>
+                    <div class="emi-calculator">
+                        <h4>Calculate Your Estimated EMI</h4>
+                        <label for="personal_loanAmount_calc">Loan Amount (₹):</label>
+                        <input type="number" id="personal_loanAmount_calc" placeholder="e.g., 500000" min="1000">
+
+                        <label for="personal_interestRate_calc">Interest Rate (% p.a.):</label>
+                        <input type="number" id="personal_interestRate_calc" placeholder="e.g., 10.5" step="0.01" min="0.1" max="50">
+
+                        <label for="personal_tenure_calc">Tenure (Years):</label>
+                        <input type="number" id="personal_tenure_calc" placeholder="e.g., 5" min="1" max="30">
+
+                        <button onclick="calculateEMI('personal')">Calculate EMI</button>
+                        <div class="emi-result" id="personal_emiResult"></div>
+                    </div>
+                </div>
+
+                <div class="loan-detail-section">
+                    <h3>How to Apply for a Personal Loan with FinanVita:</h3>
+                    <p>Applying for a personal loan through FinanVita is a simple and quick process:</p>
+                    <ol>
+                        <li>**Fill the Online Application Form:** Start by providing your basic details in the form below.</li>
+                        <li>**Get Instant Quotes:** Based on your information, we'll show you personalized loan offers from multiple lenders.</li>
+                        <li>**Choose Your Offer:** Select the loan offer that best suits your needs in terms of interest rate, tenure, and EMI.</li>
+                        <li>**Upload Documents:** Upload the required documents online or arrange for physical collection.</li>
+                        <li>**Verification & Approval:** The lender will verify your documents and creditworthiness.</li>
+                        <li>**Disbursal:** Once approved, the loan amount will be quickly disbursed to your bank account.</li>
+                    </ol>
+                    <p>Our experts are also available to guide you through every step of the process.</p>
+                </div>
+
+                <div class="loan-detail-section">
+                    <h3>Frequently Asked Questions (FAQs) - Detailed:</h3>
+                    <p><strong>Q1: What factors affect my Personal Loan eligibility?</strong><br>
+                    A: Your eligibility is primarily affected by your credit score, monthly income, existing financial obligations, employment stability, and age. A higher income and good credit score generally lead to better eligibility and terms.</p>
+                    <p><strong>Q2: Can I get a Personal Loan with a low CIBIL score?</strong><br>
+                    A: While a high CIBIL score (700+) is preferred, some lenders may offer loans to individuals with lower scores, though often at higher interest rates. It's best to check with our experts.</p>
+                    <p><strong>Q3: How much Personal Loan can I get?</strong><br>
+                    A: The maximum loan amount depends on your income, repayment capacity, and the lender's policies. Generally, it can range from a few lakhs up to ₹50 lakhs for eligible individuals.</p>
+                    <p><strong>Q4: Is it possible to get a Personal Loan without income proof?</strong><br>
+                    A: It's challenging but not impossible. Some lenders might offer loans based on high CIBIL scores or existing strong relationships. However, providing income proof always increases your chances of approval.</p>
+                    <p><strong>Q5: What is the ideal tenure for a Personal Loan?</strong><br>
+                    A: The ideal tenure depends on your repayment capacity. A shorter tenure means higher EMIs but less interest paid overall, while a longer tenure means lower EMIs but more interest paid.</p>
+                    <p><strong>Q6: Can I apply for a Personal Loan online?</strong><br>
+                    A: Yes, with FinanVita, you can apply for a Personal Loan completely online. Our digital process ensures convenience and speed, from application to disbursal.</p>
+                </div>
+
+                <div class="application-form">
+                    <h4>Apply for Your Personal Loan Now!</h4>
+                    <p>Fill out the form below to get personalized loan offers and start your application process.</p>
+                    <form id="personalLoanForm" onsubmit="handleFormSubmission(event, 'personal')"> 
+                        <label for="personal_fullName">Full Name:</label>
+                        <input type="text" id="personal_fullName" name="fullName" placeholder="Enter your full name" required>
+
+                        <label for="personal_email">Email Address:</label>
+                        <input type="email" id="personal_email" name="email" placeholder="Enter your email address" required>
+
+                        <label for="personal_phone">Phone Number:</label>
+                        <input type="tel" id="personal_phone" name="phone" placeholder="e.g., 9876543210" required>
+
+                        <label for="personal_city">City of Residence:</label>
+                        <input type="text" id="personal_city" name="city" placeholder="e.g., Jodhpur" required>
+
+                        <label for="personal_loanAmount">Desired Loan Amount (₹):</label>
+                        <input type="number" id="personal_loanAmount" name="loanAmount" min="50000" placeholder="Minimum ₹50,000" required>
+
+                        <label for="personal_employmentType">Employment Type:</label>
+                        <select id="personal_employmentType" name="employmentType" required>
+                            <option value="">Select Employment Type</option>
+                            <option value="salaried">Salaried</option>
+                            <option value="selfEmployed">Self-employed</option>
+                        </select>
+
+                        <label for="personal_monthlyIncome">Monthly Net Income (₹):</label>
+                        <input type="number" id="personal_monthlyIncome" name="monthlyIncome" min="15000" placeholder="Minimum ₹15,000" required>
+                        
+                        <label for="personal_occupation">Occupation/Profession:</label>
+                        <input type="text" id="personal_occupation" name="occupation" placeholder="e.g., Software Engineer, Doctor" required>
+
+                        <label for="personal_message">Any Specific Query? (Optional)</label>
+                        <textarea id="personal_message" name="message" rows="4" placeholder="Type your query here..."></textarea>
+
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="home">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>FinanVita Home Loan: Your Path to Homeownership</h2>
+                <div class="loan-detail-section">
+                    <h3>Overview of Home Loan</h3>
+                    <p>A **Home Loan** from FinanVita helps you finance the purchase or construction of your dream home. We offer competitive interest rates, flexible repayment tenures, and a transparent application process to make homeownership accessible and affordable for you. Whether it's a new property, resale flat, or plot purchase, we guide you every step of the way.</p>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Key Features & Benefits:</h3>
+                    <ul>
+                        <li>**High Loan Amounts:** Up to ₹5 Crores (or more depending on property value and eligibility).</li>
+                        <li>**Attractive Interest Rates:** Starting from 8.50% p.a., ensuring affordable EMIs.</li>
+                        <li>**Long Repayment Tenure:** Up to 30 years, reducing your monthly financial burden.</li>
+                        <li>**Tax Benefits:** Avail tax deductions on both principal and interest payments under Section 80C and 24(b) of the Income Tax Act.</li>
+                        <li>**Easy Application Process:** Simple documentation and quick approvals.</li>
+                        <li>**Balance Transfer Facility:** Transfer your existing home loan for lower interest rates.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Home Loan Eligibility Criteria:</h3>
+                    <ul>
+                        <li>**Age:** 21 to 65 years.</li>
+                        <li>**Employment:** Salaried or self-employed individuals with stable income.</li>
+                        <li>**Nationality:** Indian resident.</li>
+                        <li>**Credit Score:** Good CIBIL score (700+ preferred).</li>
+                        <li>**Income:** Minimum monthly income for salaried starts from ₹25,000-₹30,000. For self-employed, consistent profit history for 2-3 years.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Documents Required for Home Loan:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document Category</th>
+                                <th>Required Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**KYC Documents**</td>
+                                <td>PAN Card, Aadhaar Card, Passport/Voter ID.</td>
+                            </tr>
+                            <tr>
+                                <td>**Proof of Residence**</td>
+                                <td>Utility bills, Passport, Aadhaar Card.</td>
+                            </tr>
+                            <tr>
+                                <td>**Income Proof (Salaried)**</td>
+                                <td>Last 3 months' salary slips, last 6 months' bank statements, latest Form 16/ITR.</td>
+                            </tr>
+                            <tr>
+                                <td>**Income Proof (Self-employed)**</td>
+                                <td>Last 3 years' ITR, P&L statement, Balance Sheet, bank statements (current & savings).</td>
+                            </tr>
+                            <tr>
+                                <td>**Property Documents**</td>
+                                <td>Chain of property documents, Sale Agreement, OC (Occupancy Certificate), Approved building plan.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Home Loan EMI Calculator:</h3>
+                    <div class="emi-calculator">
+                        <h4>Calculate Your Estimated EMI</h4>
+                        <label for="home_loanAmount_calc">Loan Amount (₹):</label>
+                        <input type="number" id="home_loanAmount_calc" placeholder="e.g., 5000000" min="1000">
+
+                        <label for="home_interestRate_calc">Interest Rate (% p.a.):</label>
+                        <input type="number" id="home_interestRate_calc" placeholder="e.g., 8.5" step="0.01" min="0.1" max="50">
+
+                        <label for="home_tenure_calc">Tenure (Years):</label>
+                        <input type="number" id="home_tenure_calc" placeholder="e.g., 20" min="1" max="30">
+
+                        <button onclick="calculateEMI('home')">Calculate EMI</button>
+                        <div class="emi-result" id="home_emiResult"></div>
+                    </div>
+                </div>
+                <div class="application-form">
+                    <h4>Apply for Your Home Loan Now!</h4>
+                    <form id="homeLoanForm" onsubmit="handleFormSubmission(event, 'home')">
+                        <label for="home_fullName">Full Name:</label>
+                        <input type="text" id="home_fullName" name="fullName" required>
+                        <label for="home_email">Email Address:</label>
+                        <input type="email" id="home_email" name="email" required>
+                        <label for="home_phone">Phone Number:</label>
+                        <input type="tel" id="home_phone" name="phone" required>
+                        <label for="home_propertyType">Property Type:</label>
+                        <select id="home_propertyType" name="propertyType">
+                            <option value="">Select Property Type</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="independent_house">Independent House</option>
+                            <option value="plot">Plot</option>
+                            <option value="construction">Construction</option>
+                        </select>
+                        <label for="home_propertyValue">Approx. Property Value (₹):</label>
+                        <input type="number" id="home_propertyValue" name="propertyValue" min="1000000" required>
+                        <label for="home_income">Annual Income (₹):</label>
+                        <input type="number" id="home_income" name="annualIncome" min="300000" required>
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="business">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>FinanVita Business Loan: Empower Your Entrepreneurial Journey</h2>
+                <div class="loan-detail-section">
+                    <h3>Overview of Business Loan</h3>
+                    <p>A **Business Loan** from FinanVita provides the necessary capital to grow your enterprise, manage working capital, purchase inventory, or upgrade equipment. Our unsecured business loans are designed for small and medium enterprises (SMEs) and large corporations, offering quick funding without collateral, ensuring your business never misses an opportunity.</p>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Key Features & Benefits:</h3>
+                    <ul>
+                        <li>**Collateral-Free:** No need to pledge assets.</li>
+                        <li>**Flexible Loan Amounts:** From ₹1 Lakh up to ₹1 Crore, depending on business turnover.</li>
+                        <li>**Competitive Interest Rates:** Tailored rates based on business vintage and financials.</li>
+                        <li>**Quick Processing:** Fast approvals and disbursal to meet urgent business needs.</li>
+                        <li>**Customized Solutions:** Loans designed for various business requirements.</li>
+                        <li>**Online Application:** Simple digital application and document submission.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Business Loan Eligibility Criteria:</h3>
+                    <ul>
+                        <li>**Business Vintage:** Minimum 1-3 years of continuous operation.</li>
+                        <li>**Annual Turnover:** Varies by lender, typically starting from ₹10 Lakhs.</li>
+                        <li>**Profitability:** Business should be profitable for the last 1-2 years.</li>
+                        <li>**CIBIL Score:** Good personal and business credit score.</li>
+                        <li>**Age:** Promoter's age between 21 to 65 years.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Documents Required for Business Loan:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document Category</th>
+                                <th>Required Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**KYC Documents**</td>
+                                <td>Proprietor/Partners/Directors PAN Card, Aadhaar Card.</td>
+                            </tr>
+                            <tr>
+                                <td>**Business Proof**</td>
+                                <td>Business Registration Certificate, GST Certificate, Shop & Establishment Certificate.</td>
+                            </tr>
+                            <tr>
+                                <td>**Financial Documents**</td>
+                                <td>Last 12 months' bank statements, Latest ITRs for 2-3 years, Audited financials (P&L, Balance Sheet).</td>
+                            </tr>
+                            <tr>
+                                <td>**Other Documents**</td>
+                                <td>Partnership Deed/MOA/AOA (if applicable), Proof of Business Address.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Business Loan EMI Calculator:</h3>
+                    <div class="emi-calculator">
+                        <h4>Calculate Your Estimated EMI</h4>
+                        <label for="business_loanAmount_calc">Loan Amount (₹):</label>
+                        <input type="number" id="business_loanAmount_calc" placeholder="e.g., 1000000" min="1000">
+
+                        <label for="business_interestRate_calc">Interest Rate (% p.a.):</label>
+                        <input type="number" id="business_interestRate_calc" placeholder="e.g., 14" step="0.01" min="0.1" max="50">
+
+                        <label for="business_tenure_calc">Tenure (Years):</label>
+                        <input type="number" id="business_tenure_calc" placeholder="e.g., 3" min="1" max="30">
+
+                        <button onclick="calculateEMI('business')">Calculate EMI</button>
+                        <div class="emi-result" id="business_emiResult"></div>
+                    </div>
+                </div>
+                <div class="application-form">
+                    <h4>Apply for Your Business Loan Now!</h4>
+                    <form id="businessLoanForm" onsubmit="handleFormSubmission(event, 'business')">
+                        <label for="business_fullName">Full Name (Proprietor/Director):</label>
+                        <input type="text" id="business_fullName" name="fullName" required>
+                        <label for="business_email">Email Address:</label>
+                        <input type="email" id="business_email" name="email" required>
+                        <label for="business_phone">Phone Number:</label>
+                        <input type="tel" id="business_phone" name="phone" required>
+                        <label for="business_name">Business Name:</label>
+                        <input type="text" id="business_name" name="businessName" required>
+                        <label for="business_type">Business Type:</label>
+                        <select id="business_type" name="businessType">
+                            <option value="">Select Business Type</option>
+                            <option value="proprietorship">Proprietorship</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="pvt_ltd">Pvt. Ltd.</option>
+                            <option value="llp">LLP</option>
+                        </select>
+                        <label for="business_loanAmount">Desired Loan Amount (₹):</label>
+                        <input type="number" id="business_loanAmount" name="loanAmount" min="100000" required>
+                        <label for="business_turnover">Last Year's Annual Turnover (₹):</label>
+                        <input type="number" id="business_turnover" name="annualTurnover" min="500000" required>
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="used-car">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>FinanVita Used Car Loan: Drive Home Your Pre-Owned Dream</h2>
+                <div class="loan-detail-section">
+                    <h3>Overview of Used Car Loan</h3>
+                    <p>A **Used Car Loan** from FinanVita helps you finance the purchase of a pre-owned vehicle, making it an affordable option to own a car without the burden of new car prices. We offer quick approvals, competitive interest rates, and flexible EMIs to suit your budget, helping you drive your desired car sooner.</p>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Key Features & Benefits:</h3>
+                    <ul>
+                        <li>**Finance Up to 90%:** Get funding for a significant portion of the used car's value.</li>
+                        <li>**Fast Processing:** Quick approvals and disbursal, often within days.</li>
+                        <li>**Attractive Interest Rates:** Competitive rates for pre-owned vehicles.</li>
+                        <li>**Flexible Repayment Tenure:** Up to 5 years, allowing manageable EMIs.</li>
+                        <li>**Wide Range of Cars Covered:** Finance sedans, SUVs, hatchbacks, and luxury cars.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Used Car Loan Eligibility Criteria:</h3>
+                    <ul>
+                        <li>**Age:** 21 to 65 years.</li>
+                        <li>**Employment:** Salaried or self-employed individuals.</li>
+                        <li>**Minimum Monthly Income:** Salaried: ₹20,000-₹25,000; Self-employed: Consistent income for 2-3 years.</li>
+                        <li>**Car Age:** The car should typically not be older than 10 years at the time of loan maturity.</li>
+                        <li>**Credit Score:** Good CIBIL score.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Documents Required for Used Car Loan:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document Category</th>
+                                <th>Required Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**KYC Documents**</td>
+                                <td>PAN Card, Aadhaar Card, Passport/Voter ID.</td>
+                            </tr>
+                            <tr>
+                                <td>**Proof of Residence**</td>
+                                <td>Utility bills, Passport, Aadhaar Card.</td>
+                            </tr>
+                            <tr>
+                                <td>**Income Proof**</td>
+                                <td>Salary slips/Bank statements (salaried), ITR/Audited financials (self-employed).</td>
+                            </tr>
+                            <tr>
+                                <td>**Car-related Documents**</td>
+                                <td>Registration Certificate (RC), Insurance Copy, Pollution Under Control (PUC) Certificate, Valuation report (if required).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Used Car Loan EMI Calculator:</h3>
+                    <div class="emi-calculator">
+                        <h4>Calculate Your Estimated EMI</h4>
+                        <label for="used-car_loanAmount_calc">Loan Amount (₹):</label>
+                        <input type="number" id="used-car_loanAmount_calc" placeholder="e.g., 300000" min="1000">
+
+                        <label for="used-car_interestRate_calc">Interest Rate (% p.a.):</label>
+                        <input type="number" id="used-car_interestRate_calc" placeholder="e.g., 12" step="0.01" min="0.1" max="50">
+
+                        <label for="used-car_tenure_calc">Tenure (Years):</label>
+                        <input type="number" id="used-car_tenure_calc" placeholder="e.g., 4" min="1" max="10">
+
+                        <button onclick="calculateEMI('used-car')">Calculate EMI</button>
+                        <div class="emi-result" id="used-car_emiResult"></div>
+                    </div>
+                </div>
+                <div class="application-form">
+                    <h4>Apply for Your Used Car Loan Now!</h4>
+                    <form id="usedCarLoanForm" onsubmit="handleFormSubmission(event, 'used-car')">
+                        <label for="usedcar_fullName">Full Name:</label>
+                        <input type="text" id="usedcar_fullName" name="fullName" required>
+                        <label for="usedcar_email">Email Address:</label>
+                        <input type="email" id="usedcar_email" name="email" required>
+                        <label for="usedcar_phone">Phone Number:</label>
+                        <input type="tel" id="usedcar_phone" name="phone" required>
+                        <label for="usedcar_makeModel">Car Make & Model:</label>
+                        <input type="text" id="usedcar_makeModel" name="makeModel" placeholder="e.g., Maruti Swift Dzire" required>
+                        <label for="usedcar_mfgYear">Manufacturing Year:</label>
+                        <input type="number" id="usedcar_mfgYear" name="mfgYear" min="2005" max="2025" required>
+                        <label for="usedcar_carValue">Approx. Car Value (₹):</label>
+                        <input type="number" id="usedcar_carValue" name="carValue" min="100000" required>
+                        <label for="usedcar_income">Monthly Income (₹):</label>
+                        <input type="number" id="usedcar_income" name="monthlyIncome" min="20000" required>
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="lap">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>FinanVita Loan Against Property: Unlock Your Property's Potential</h2>
+                <div class="loan-detail-section">
+                    <h3>Overview of Loan Against Property (LAP)</h3>
+                    <p>A **Loan Against Property (LAP)** from FinanVita allows you to leverage your residential or commercial property to secure a loan. It's a versatile financial solution that can be used for various personal or business needs, offering higher loan amounts and longer repayment tenures compared to unsecured loans, all at attractive interest rates.</p>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Key Features & Benefits:</h3>
+                    <ul>
+                        <li>**Higher Loan Amounts:** Borrow significant amounts, often up to 70-80% of your property's market value.</li>
+                        <li>**Lower Interest Rates:** Being a secured loan, LAP usually offers lower interest rates than personal loans.</li>
+                        <li>**Longer Tenure:** Repayment periods can extend up to 15-20 years, resulting in smaller, more manageable EMIs.</li>
+                        <li>**Multi-Purpose Use:** Funds can be used for business expansion, child's education/wedding, medical emergencies, or debt consolidation.</li>
+                        <li>**Retain Ownership:** You retain ownership of your property while it acts as collateral.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Loan Against Property Eligibility Criteria:</h3>
+                    <ul>
+                        <li>**Age:** 21 to 65 years.</li>
+                        <li>**Employment:** Salaried or self-employed individuals with consistent income.</li>
+                        <li>**Property Ownership:** Applicant must be the sole or joint owner of the property being mortgaged.</li>
+                        <li>**Property Type:** Residential or commercial property (excluding agricultural land).</li>
+                        <li>**Credit Score:** Good CIBIL score (700+).</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Documents Required for Loan Against Property:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document Category</th>
+                                <th>Required Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**KYC Documents**</td>
+                                <td>PAN Card, Aadhaar Card, Passport/Voter ID.</td>
+                            </tr>
+                            <tr>
+                                <td>**Proof of Residence**</td>
+                                <td>Utility bills, Passport, Aadhaar Card.</td>
+                            </tr>
+                            <tr>
+                                <td>**Income Proof**</td>
+                                <td>Salary slips/Bank statements (salaried), ITR/Audited financials (self-employed).</td>
+                            </tr>
+                            <tr>
+                                <td>**Property Documents**</td>
+                                <td>Original property documents, Approved building plan, Occupancy Certificate, Tax receipts.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Loan Against Property EMI Calculator:</h3>
+                    <div class="emi-calculator">
+                        <h4>Calculate Your Estimated EMI</h4>
+                        <label for="lap_loanAmount_calc">Loan Amount (₹):</label>
+                        <input type="number" id="lap_loanAmount_calc" placeholder="e.g., 10000000" min="1000">
+
+                        <label for="lap_interestRate_calc">Interest Rate (% p.a.):</label>
+                        <input type="number" id="lap_interestRate_calc" placeholder="e.g., 9.5" step="0.01" min="0.1" max="50">
+
+                        <label for="lap_tenure_calc">Tenure (Years):</label>
+                        <input type="number" id="lap_tenure_calc" placeholder="e.g., 15" min="1" max="30">
+
+                        <button onclick="calculateEMI('lap')">Calculate EMI</button>
+                        <div class="emi-result" id="lap_emiResult"></div>
+                    </div>
+                </div>
+                <div class="application-form">
+                    <h4>Apply for Your Loan Against Property Now!</h4>
+                    <form id="lapLoanForm" onsubmit="handleFormSubmission(event, 'lap')">
+                        <label for="lap_fullName">Full Name:</label>
+                        <input type="text" id="lap_fullName" name="fullName" required>
+                        <label for="lap_email">Email Address:</label>
+                        <input type="email" id="lap_email" name="email" required>
+                        <label for="lap_phone">Phone Number:</label>
+                        <input type="tel" id="lap_phone" name="phone" required>
+                        <label for="lap_propertyAddress">Property Address:</label>
+                        <input type="text" id="lap_propertyAddress" name="propertyAddress" required>
+                        <label for="lap_propertyType">Property Type:</label>
+                        <select id="lap_propertyType" name="propertyType">
+                            <option value="">Select Property Type</option>
+                            <option value="residential">Residential</option>
+                            <option value="commercial">Commercial</option>
+                        </select>
+                        <label for="lap_propertyValue">Property Market Value (₹):</label>
+                        <input type="number" id="lap_propertyValue" name="propertyValue" min="5000000" required>
+                        <label for="lap_income">Annual Income (₹):</label>
+                        <input type="number" id="lap_income" name="annualIncome" min="500000" required>
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="car">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>FinanVita Car Loan: Your Ride to a New Beginning</h2>
+                <div class="loan-detail-section">
+                    <h3>Overview of Car Loan</h3>
+                    <p>A **Car Loan** from FinanVita helps you purchase a brand new car with ease and convenience. We offer competitive interest rates, flexible EMI options, and quick processing to make your new car dream a reality. Our car loans cover a wide range of models and manufacturers, ensuring you find the perfect match for your needs and budget.</p>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Key Features & Benefits:</h3>
+                    <ul>
+                        <li>**High Funding:** Up to 100% of the ex-showroom price (or 80-90% of on-road price).</li>
+                        <li>**Attractive Interest Rates:** Enjoy low interest rates starting from 8.00% p.a.</li>
+                        <li>**Flexible Tenure:** Choose a repayment period of up to 7 years.</li>
+                        <li>**Quick Approval:** Fast processing, often within 24-48 hours.</li>
+                        <li>**Minimal Documentation:** Streamlined application process.</li>
+                        <li>**For Wide Range of Cars:** All popular brands and models covered.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Car Loan Eligibility Criteria:</h3>
+                    <ul>
+                        <li>**Age:** 21 to 65 years.</li>
+                        <li>**Employment:** Salaried or self-employed individuals.</li>
+                        <li>**Minimum Monthly Income:** Salaried: ₹15,000-₹20,000; Self-employed: Consistent income for 2-3 years.</li>
+                        <li>**Credit Score:** Good CIBIL score.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Documents Required for Car Loan:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document Category</th>
+                                <th>Required Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**KYC Documents**</td>
+                                <td>PAN Card, Aadhaar Card, Passport/Voter ID.</td>
+                            </tr>
+                            <tr>
+                                <td>**Proof of Residence**</td>
+                                <td>Utility bills, Passport, Aadhaar Card.</td>
+                            </tr>
+                            <tr>
+                                <td>**Income Proof**</td>
+                                <td>Salary slips/Bank statements (salaried), ITR/Audited financials (self-employed).</td>
+                            </tr>
+                            <tr>
+                                <td>**Other Documents**</td>
+                                <td>Car quotation/Proforma Invoice from dealer, One passport-sized photograph.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Car Loan EMI Calculator:</h3>
+                    <div class="emi-calculator">
+                        <h4>Calculate Your Estimated EMI</h4>
+                        <label for="car_loanAmount_calc">Loan Amount (₹):</label>
+                        <input type="number" id="car_loanAmount_calc" placeholder="e.g., 700000" min="1000">
+
+                        <label for="car_interestRate_calc">Interest Rate (% p.a.):</label>
+                        <input type="number" id="car_interestRate_calc" placeholder="e.g., 9.0" step="0.01" min="0.1" max="50">
+
+                        <label for="car_tenure_calc">Tenure (Years):</label>
+                        <input type="number" id="car_tenure_calc" placeholder="e.g., 5" min="1" max="7">
+
+                        <button onclick="calculateEMI('car')">Calculate EMI</button>
+                        <div class="emi-result" id="car_emiResult"></div>
+                    </div>
+                </div>
+                <div class="application-form">
+                    <h4>Apply for Your New Car Loan Now!</h4>
+                    <form id="carLoanForm" onsubmit="handleFormSubmission(event, 'car')">
+                        <label for="car_fullName">Full Name:</label>
+                        <input type="text" id="car_fullName" name="fullName" required>
+                        <label for="car_email">Email Address:</label>
+                        <input type="email" id="car_email" name="email" required>
+                        <label for="car_phone">Phone Number:</label>
+                        <input type="tel" id="car_phone" name="phone" required>
+                        <label for="car_makeModel">Desired Car Make & Model:</label>
+                        <input type="text" id="car_makeModel" name="makeModel" placeholder="e.g., Hyundai Creta" required>
+                        <label for="car_exShowroom">Car Ex-Showroom Price (₹):</label>
+                        <input type="number" id="car_exShowroom" name="carExShowroom" min="300000" required>
+                        <label for="car_income">Monthly Income (₹):</label>
+                        <input type="number" id="car_income" name="monthlyIncome" min="15000" required>
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="education">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>FinanVita Education Loan: Invest in Your Future</h2>
+                <div class="loan-detail-section">
+                    <h3>Overview of Education Loan</h3>
+                    <p>An **Education Loan** from FinanVita provides financial assistance for students pursuing higher education, both in India and abroad. Our loans cover tuition fees, accommodation, books, and other study-related expenses, ensuring that financial constraints do not hinder your academic dreams. We offer competitive interest rates and flexible repayment options, including a moratorium period.</p>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Key Features & Benefits:</h3>
+                    <ul>
+                        <li>**Comprehensive Coverage:** Covers tuition fees, living expenses, books, and other related costs.</li>
+                        <li>**Study in India & Abroad:** Loans for various courses and institutions globally.</li>
+                        <li>**Moratorium Period:** Repayment starts after course completion plus a grace period (e.g., 6-12 months).</li>
+                        <li>**Tax Benefits:** Deductions on interest paid under Section 80E of the Income Tax Act.</li>
+                        <li>**Competitive Interest Rates:** Affordable rates to ease the burden on students and parents.</li>
+                        <li>**Co-applicant Flexibility:** Parents, guardians, or spouses can be co-applicants.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Education Loan Eligibility Criteria:</h3>
+                    <ul>
+                        <li>**Student Nationality:** Indian citizen.</li>
+                        <li>**Admission:** Confirmed admission in a recognized Indian or foreign institution.</li>
+                        <li>**Co-applicant:** A parent, guardian, or spouse with a stable income source is typically required.</li>
+                        <li>**Age:** Student age 16-35 years. Co-applicant age 21-65 years.</li>
+                        <li>**Credit Score:** Good CIBIL score for the co-applicant.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Documents Required for Education Loan:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document Category</th>
+                                <th>Required Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**Applicant (Student) Documents**</td>
+                                <td>KYC documents (Aadhaar, PAN, Passport), Admission letter, Academic records (mark sheets).</td>
+                            </tr>
+                            <tr>
+                                <td>**Co-applicant Documents**</td>
+                                <td>KYC documents, Income proof (salary slips/ITR), Bank statements.</td>
+                            </tr>
+                            <tr>
+                                <td>**Course-related Documents**</td>
+                                <td>Fee structure, Course duration certificate, Prospectus (if applicable).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Education Loan EMI Calculator:</h3>
+                    <div class="emi-calculator">
+                        <h4>Calculate Your Estimated EMI</h4>
+                        <label for="education_loanAmount_calc">Loan Amount (₹):</label>
+                        <input type="number" id="education_loanAmount_calc" placeholder="e.g., 1500000" min="1000">
+
+                        <label for="education_interestRate_calc">Interest Rate (% p.a.):</label>
+                        <input type="number" id="education_interestRate_calc" placeholder="e.g., 11.0" step="0.01" min="0.1" max="50">
+
+                        <label for="education_tenure_calc">Tenure (Years):</label>
+                        <input type="number" id="education_tenure_calc" placeholder="e.g., 7" min="1" max="15">
+
+                        <button onclick="calculateEMI('education')">Calculate EMI</button>
+                        <div class="emi-result" id="education_emiResult"></div>
+                    </div>
+                </div>
+                <div class="application-form">
+                    <h4>Apply for Your Education Loan Now!</h4>
+                    <form id="educationLoanForm" onsubmit="handleFormSubmission(event, 'education')">
+                        <label for="edu_fullName">Student's Full Name:</label>
+                        <input type="text" id="edu_fullName" name="fullName" required>
+                        <label for="edu_email">Student's Email Address:</label>
+                        <input type="email" id="edu_email" name="email" required>
+                        <label for="edu_phone">Student's Phone Number:</label>
+                        <input type="tel" id="edu_phone" name="phone" required>
+                        <label for="edu_courseName">Course Name:</label>
+                        <input type="text" id="edu_courseName" name="courseName" placeholder="e.g., B.Tech, MBA" required>
+                        <label for="edu_instituteName">Institute Name:</label>
+                        <input type="text" id="edu_instituteName" name="instituteName" placeholder="e.g., IIT Delhi" required>
+                        <label for="edu_studyLocation">Study Location:</label>
+                        <select id="edu_studyLocation" name="studyLocation">
+                            <option value="india">India</option>
+                            <option value="abroad">Abroad</option>
+                        </select>
+                        <label for="edu_loanAmount">Desired Loan Amount (₹):</label>
+                        <input type="number" id="edu_loanAmount" name="loanAmount" min="50000" required>
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="gold">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>FinanVita Gold Loan: Instant Cash Against Your Gold</h2>
+                <div class="loan-detail-section">
+                    <h3>Overview of Gold Loan</h3>
+                    <p>A **Gold Loan** from FinanVita provides an instant and secure way to access funds by pledging your gold ornaments and jewellery. It's an ideal solution for urgent financial needs, offering lower interest rates compared to unsecured loans, flexible repayment options, and minimal documentation.</p>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Key Features & Benefits:</h3>
+                    <ul>
+                        <li>**Instant Disbursal:** Get cash quickly, often within hours of approval.</li>
+                        <li>**Low Interest Rates:** Interest rates typically lower than personal loans.</li>
+                        <li>**Flexible Repayment:** Choose from various repayment schemes, including bullet repayment.</li>
+                        <li>**Minimal Documentation:** Simple KYC documents usually suffice.</li>
+                        <li>**Safe Storage:** Your gold is securely stored in bank-grade vaults.</li>
+                        <li>**No Credit Score Dependency:** Primary criteria is gold value and purity, not just CIBIL score.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Gold Loan Eligibility Criteria:</h3>
+                    <ul>
+                        <li>**Age:** 18 years and above.</li>
+                        <li>**Nationality:** Indian citizen.</li>
+                        <li>**Gold Pledged:** Must be gold ornaments or jewellery of acceptable purity (typically 18-24 Karats).</li>
+                        <li>**Minimum Gold Weight:** Varies by lender, usually starts from 10-20 grams.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Gold Loan EMI Calculator:</h3>
+                    <div class="emi-calculator">
+                        <h4>Calculate Your Estimated EMI</h4>
+                        <label for="gold_loanAmount_calc">Loan Amount (₹):</label>
+                        <input type="number" id="gold_loanAmount_calc" placeholder="e.g., 200000" min="1000">
+
+                        <label for="gold_interestRate_calc">Interest Rate (% p.a.):</label>
+                        <input type="number" id="gold_interestRate_calc" placeholder="e.g., 9.0" step="0.01" min="0.1" max="50">
+
+                        <label for="gold_tenure_calc">Tenure (Months):</label>
+                        <input type="number" id="gold_tenure_calc" placeholder="e.g., 12" min="1" max="60">
+
+                        <button onclick="calculateEMI('gold')">Calculate EMI</button>
+                        <div class="emi-result" id="gold_emiResult"></div>
+                    </div>
+                </div>
+                <div class="application-form">
+                    <h4>Apply for Your Gold Loan Now!</h4>
+                    <form id="goldLoanForm" onsubmit="handleFormSubmission(event, 'gold')">
+                        <label for="gold_fullName">Full Name:</label>
+                        <input type="text" id="gold_fullName" name="fullName" required>
+                        <label for="gold_email">Email Address:</label>
+                        <input type="email" id="gold_email" name="email" required>
+                        <label for="gold_phone">Phone Number:</label>
+                        <input type="tel" id="gold_phone" name="phone" required>
+                        <label for="gold_type">Type of Gold:</label>
+                        <select id="gold_type" name="goldType">
+                            <option value="ornaments">Ornaments</option>
+                            <option value="jewellery">Jewellery</option>
+                        </select>
+                        <label for="gold_weight">Approx. Gold Weight (grams):</label>
+                        <input type="number" id="gold_weight" name="goldWeight" min="5" required>
+                        <label for="gold_purpose">Purpose of Loan:</label>
+                        <textarea id="gold_purpose" name="purpose" rows="2" placeholder="e.g., Medical emergency, Business need"></textarea>
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="credit-card">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>FinanVita Credit Card: Your Gateway to Financial Flexibility</h2>
+                <div class="loan-detail-section">
+                    <h3>Overview of Credit Card</h3>
+                    <p>A **Credit Card** from FinanVita offers you unparalleled financial flexibility and convenience for everyday spending, online purchases, and emergencies. Choose from a wide range of credit cards offering exciting rewards, cashback, travel benefits, and exclusive discounts, tailored to your lifestyle and spending habits. Build your credit score while enjoying a host of privileges.</p>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Key Features & Benefits:</h3>
+                    <ul>
+                        <li>**Reward Points/Cashback:** Earn points or cashback on every spend.</li>
+                        <li>**Interest-Free Period:** Up to 50 days of interest-free credit.</li>
+                        <li>**EMI Option:** Convert large purchases into easy EMIs.</li>
+                        <li>**Travel Benefits:** Lounge access, air miles, travel discounts on select cards.</li>
+                        <li>**Exclusive Discounts:** Offers on dining, shopping, and entertainment.</li>
+                        <li>**Emergency Funds:** A ready line of credit for unforeseen expenses.</li>
+                        <li>**Credit Score Building:** Timely payments improve your CIBIL score.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Credit Card Eligibility Criteria:</h3>
+                    <ul>
+                        <li>**Age:** 21 to 60 years.</li>
+                        <li>**Employment:** Salaried or self-employed individuals.</li>
+                        <li>**Minimum Monthly Income:** Salaried: ₹18,000-₹25,000; Self-employed: Annual ITR of ₹3-5 Lakhs.</li>
+                        <li>**Credit History:** Good credit score with no defaults.</li>
+                        <li>**Residence:** Residing in a serviceable city.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Documents Required for Credit Card:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document Category</th>
+                                <th>Required Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**Identity Proof**</td>
+                                <td>PAN Card, Aadhaar Card, Passport, Driving License.</td>
+                            </tr>
+                            <tr>
+                                <td>**Address Proof**</td>
+                                <td>Aadhaar Card, Passport, Utility Bills (last 3 months).</td>
+                            </tr>
+                            <tr>
+                                <td>**Income Proof (Salaried)**</td>
+                                <td>Latest 3 months' salary slips, latest Form 16, last 3-6 months' bank statement.</td>
+                            </tr>
+                            <tr>
+                                <td>**Income Proof (Self-employed)**</td>
+                                <td>Latest ITR (for 2-3 years), audited financials (P&L, Balance Sheet), last 6 months' bank statement.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Credit Card EMI Calculator:</h3>
+                    <div class="emi-calculator">
+                        <h4>Calculate Your Estimated EMI</h4>
+                        <label for="credit-card_loanAmount_calc">Amount to convert to EMI (₹):</label>
+                        <input type="number" id="credit-card_loanAmount_calc" placeholder="e.g., 50000" min="1000">
+
+                        <label for="credit-card_interestRate_calc">Interest Rate (% p.a.):</label>
+                        <input type="number" id="credit-card_interestRate_calc" placeholder="e.g., 18" step="0.01" min="0.1" max="50">
+
+                        <label for="credit-card_tenure_calc">Tenure (Months):</label>
+                        <input type="number" id="credit-card_tenure_calc" placeholder="e.g., 12" min="1" max="60">
+
+                        <button onclick="calculateEMI('credit-card')">Calculate EMI</button>
+                        <div class="emi-result" id="credit-card_emiResult"></div>
+                    </div>
+                </div>
+                <div class="application-form">
+                    <h4>Apply for Your Credit Card Now!</h4>
+                    <form id="creditCardForm" onsubmit="handleFormSubmission(event, 'credit-card')">
+                        <label for="cc_fullName">Full Name:</label>
+                        <input type="text" id="cc_fullName" name="fullName" required>
+                        <label for="cc_email">Email Address:</label>
+                        <input type="email" id="cc_email" name="email" required>
+                        <label for="cc_phone">Phone Number:</label>
+                        <input type="tel" id="cc_phone" name="phone" required>
+                        <label for="cc_income">Monthly Net Income (₹):</label>
+                        <input type="number" id="cc_income" name="monthlyIncome" min="18000" required>
+                        <label for="cc_occupation">Occupation Type:</label>
+                        <select id="cc_occupation" name="occupation">
+                            <option value="">Select Occupation</option>
+                            <option value="salaried">Salaried</option>
+                            <option value="self_employed">Self-employed</option>
+                            <option value="retired">Retired</option>
+                        </select>
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="balance-transfer">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>FinanVita Balance Transfer: Lower Your EMIs, Save More</h2>
+                <div class="loan-detail-section">
+                    <h3>Overview of Balance Transfer</h3>
+                    <p>A **Balance Transfer** facility allows you to transfer your existing loan (Personal Loan, Home Loan, Loan Against Property) from one bank or financial institution to another, typically at a lower interest rate. This can significantly reduce your monthly EMI burden and save you a substantial amount over the loan tenure, providing financial relief and better management of your finances.</p>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Key Features & Benefits:</h3>
+                    <ul>
+                        <li>**Reduced Interest Rate:** Avail lower interest rates on your outstanding loan.</li>
+                        <li>**Lower EMIs:** Significant savings on monthly installments.</li>
+                        <li>**Top-up Facility:** Option to get additional funds along with the balance transfer.</li>
+                        <li>**Flexible Tenure:** Choose a new tenure that suits your repayment capacity.</li>
+                        <li>**Consolidate Debts:** Combine multiple high-interest loans into one.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Balance Transfer Eligibility Criteria:</h3>
+                    <ul>
+                        <li>**Good Repayment History:** Consistent and timely repayment on your existing loan.</li>
+                        <li>**Loan Age:** Usually, the existing loan should have been running for at least 6-12 months.</li>
+                        <li>**Outstanding Balance:** Minimum outstanding loan amount requirement may apply.</li>
+                        <li>**Credit Score:** Good CIBIL score (700+).</li>
+                        <li>**Age & Income:** Standard age and income criteria apply for the new lender.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Documents Required for Balance Transfer:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document Category</th>
+                                <th>Required Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**KYC Documents**</td>
+                                <td>PAN Card, Aadhaar Card, Passport/Voter ID.</td>
+                            </tr>
+                            <tr>
+                                <td>**Income Proof**</td>
+                                <td>Salary slips/Bank statements (salaried), ITR/Audited financials (self-employed).</td>
+                            </tr>
+                            <tr>
+                                <td>**Existing Loan Documents**</td>
+                                <td>Loan Statement for last 6-12 months, Foreclosure letter from existing lender, Sanction letter.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Balance Transfer EMI Calculator:</h3>
+                    <div class="emi-calculator">
+                        <h4>Calculate Your Estimated EMI</h4>
+                        <label for="balance-transfer_loanAmount_calc">Outstanding Loan Amount (₹):</label>
+                        <input type="number" id="balance-transfer_loanAmount_calc" placeholder="e.g., 800000" min="1000">
+
+                        <label for="balance-transfer_interestRate_calc">New Interest Rate (% p.a.):</label>
+                        <input type="number" id="balance-transfer_interestRate_calc" placeholder="e.g., 10.0" step="0.01" min="0.1" max="50">
+
+                        <label for="balance-transfer_tenure_calc">Remaining Tenure (Years):</label>
+                        <input type="number" id="balance-transfer_tenure_calc" placeholder="e.g., 4" min="1" max="30">
+
+                        <button onclick="calculateEMI('balance-transfer')">Calculate EMI</button>
+                        <div class="emi-result" id="balance-transfer_emiResult"></div>
+                    </div>
+                </div>
+                <div class="application-form">
+                    <h4>Apply for Balance Transfer Now!</h4>
+                    <form id="balanceTransferForm" onsubmit="handleFormSubmission(event, 'balance-transfer')">
+                        <label for="bt_fullName">Full Name:</label>
+                        <input type="text" id="bt_fullName" name="fullName" required>
+                        <label for="bt_email">Email Address:</label>
+                        <input type="email" id="bt_email" name="email" required>
+                        <label for="bt_phone">Phone Number:</label>
+                        <input type="tel" id="bt_phone" name="phone" required>
+                        <label for="bt_currentLoan">Current Loan Type:</label>
+                        <select id="bt_currentLoan" name="currentLoanType">
+                            <option value="">Select Loan Type</option>
+                            <option value="personal">Personal Loan</option>
+                            <option value="home">Home Loan</option>
+                            <option value="lap">Loan Against Property</option>
+                            <option value="car">Car Loan</option>
+                        </select>
+                        <label for="bt_outstanding">Outstanding Loan Amount (₹):</label>
+                        <input type="number" id="bt_outstanding" name="outstandingAmount" min="50000" required>
+                        <label for="bt_currentEMI">Current EMI (₹):</label>
+                        <input type="number" id="bt_currentEMI" name="currentEMI" min="1000" required>
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="professional">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>FinanVita Professional Loan: Tailored for Professionals</h2>
+                <div class="loan-detail-section">
+                    <h3>Overview of Professional Loan</h3>
+                    <p>A **Professional Loan** from FinanVita is a specialized financial product designed to cater to the unique needs of self-employed professionals like doctors, chartered accountants, company secretaries, architects, and engineers. These loans offer quick access to funds for various purposes such as setting up a new clinic/office, purchasing equipment, expanding practice, or managing working capital, often with preferential terms.</p>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Key Features & Benefits:</h3>
+                    <ul>
+                        <li>**Higher Loan Amounts:** Access substantial funds tailored to professional requirements.</li>
+                        <li>**No Collateral:** Usually unsecured, freeing you from pledging assets.</li>
+                        <li>**Flexible Tenure:** Repayment options designed for professional cash flows.</li>
+                        <li>**Competitive Interest Rates:** Preferential rates for qualified professionals.</li>
+                        <li>**Quick Processing:** Fast approvals to meet urgent professional needs.</li>
+                        <li>**Multi-purpose Use:** For practice expansion, equipment purchase, working capital, or personal needs.</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Professional Loan Eligibility Criteria:</h3>
+                    <ul>
+                        <li>**Profession:** Must be a qualified and practicing professional (Doctor, CA, CS, Architect, Engineer, etc.).</li>
+                        <li>**Age:** 21 to 65 years.</li>
+                        <li>**Practice Vintage:** Minimum 2-4 years of professional practice.</li>
+                        <li>**Income:** Consistent and verifiable income through professional practice.</li>
+                        <li>**Credit Score:** Good CIBIL score (700+).</li>
+                    </ul>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Documents Required for Professional Loan:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Document Category</th>
+                                <th>Required Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>**KYC Documents**</td>
+                                <td>PAN Card, Aadhaar Card, Professional Degree/Certificate.</td>
+                            </tr>
+                            <tr>
+                                <td>**Proof of Residence/Office**</td>
+                                <td>Utility bills, Rental agreement.</td>
+                            </tr>
+                            <tr>
+                                <td>**Income Proof**</td>
+                                <td>Latest ITR (for 2-3 years), Bank statements (12 months), P&L statement, Balance Sheet.</td>
+                            </tr>
+                            <tr>
+                                <td>**Practice Proof**</td>
+                                <td>Professional registration certificate, Proof of establishment of clinic/office.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loan-detail-section">
+                    <h3>Professional Loan EMI Calculator:</h3>
+                    <div class="emi-calculator">
+                        <h4>Calculate Your Estimated EMI</h4>
+                        <label for="professional_loanAmount_calc">Loan Amount (₹):</label>
+                        <input type="number" id="professional_loanAmount_calc" placeholder="e.g., 2000000" min="1000">
+
+                        <label for="professional_interestRate_calc">Interest Rate (% p.a.):</label>
+                        <input type="number" id="professional_interestRate_calc" placeholder="e.g., 12.0" step="0.01" min="0.1" max="50">
+
+                        <label for="professional_tenure_calc">Tenure (Years):</label>
+                        <input type="number" id="professional_tenure_calc" placeholder="e.g., 5" min="1" max="10">
+
+                        <button onclick="calculateEMI('professional')">Calculate EMI</button>
+                        <div class="emi-result" id="professional_emiResult"></div>
+                    </div>
+                </div>
+                <div class="application-form">
+                    <h4>Apply for Your Professional Loan Now!</h4>
+                    <form id="professionalLoanForm" onsubmit="handleFormSubmission(event, 'professional')">
+                        <label for="prof_fullName">Full Name:</label>
+                        <input type="text" id="prof_fullName" name="fullName" required>
+                        <label for="prof_email">Email Address:</label>
+                        <input type="email" id="prof_email" name="email" required>
+                        <label for="prof_phone">Phone Number:</label>
+                        <input type="tel" id="prof_phone" name="phone" required>
+                        <label for="prof_profession">Profession:</label>
+                        <select id="prof_profession" name="profession">
+                            <option value="">Select Profession</option>
+                            <option value="doctor">Doctor</option>
+                            <option value="ca">Chartered Accountant</option>
+                            <option value="engineer">Engineer</option>
+                            <option value="architect">Architect</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <label for="prof_practiceYears">Years in Practice:</label>
+                        <input type="number" id="prof_practiceYears" name="practiceYears" min="2" required>
+                        <label for="prof_loanAmount">Desired Loan Amount (₹):</label>
+                        <input type="number" id="prof_loanAmount" name="loanAmount" min="100000" required>
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="agent-advisor">
+                <a href="#" class="back-button" onclick="window.location.hash = ''">Back to All Products</a>
+                <h2>Become a FinanVita Agent & Advisor</h2>
+                <div class="loan-detail-section">
+                    <h3>Join Our Network of Financial Experts</h3>
+                    <p>Partner with FinanVita and embark on a rewarding journey to help individuals and businesses achieve their financial goals. As a certified Agent or Advisor, you will get access to our diverse range of products, a powerful digital platform, and dedicated support to grow your own business.</p>
+                    <p>We are looking for motivated individuals with a passion for finance and a commitment to customer satisfaction. Whether you are an experienced financial advisor or new to the industry, we provide the training and tools you need to succeed.</p>
+                    <h3>Why Partner with Us?</h3>
+                    <ul>
+                        <li><strong>Attractive Payouts:</strong> Earn competitive commissions on every successful loan disbursal.</li>
+                        <li><strong>Digital Platform:</strong> Use our state-of-the-art dashboard to manage leads, track applications, and view earnings in real-time.</li>
+                        <li><strong>Product Training:</strong> Get comprehensive training on all our loan products and sales processes.</li>
+                        <li><strong>Marketing Support:</strong> Leverage our brand and marketing materials to attract more clients.</li>
+                        <li><strong>Flexible Work:</strong> Work from anywhere, at any time. Be your own boss.</li>
+                    </ul>
+                </div>
+                <div class="application-form">
+                    <h4>Agent & Advisor Application Form</h4>
+                    <p>Fill out the form below to express your interest. Our team will get in touch with you shortly.</p>
+                    <form id="agentAdvisorForm" onsubmit="handleFormSubmission(event, 'agent-advisor')">
+                        <label for="agent_fullName">Full Name:</label>
+                        <input type="text" id="agent_fullName" name="fullName" placeholder="Enter your full name" required>
+
+                        <label for="agent_email">Email Address:</label>
+                        <input type="email" id="agent_email" name="email" placeholder="Enter your email address" required>
+
+                        <label for="agent_phone">Phone Number:</label>
+                        <input type="tel" id="agent_phone" name="phone" placeholder="Your primary contact number" required>
+
+                        <label for="agent_city">City & State:</label>
+                        <input type="text" id="agent_city" name="city" placeholder="e.g., Jodhpur, Rajasthan" required>
+
+                        <label for="agent_experience">Relevant Experience (if any):</label>
+                        <textarea id="agent_experience" name="experience" rows="4" placeholder="Briefly describe your experience in finance, sales, or a related field."></textarea>
+
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="loan-details-content" id="about-us">
+                <a href="#" class="back-button" onclick="closeSideNav(); window.location.hash = ''">Back to All Products</a>
+                <h2><img src="https://iili.io/Fvoj299.md.jpg" alt="FinanVita Logo" style="height: 1.2em; vertical-align: middle; margin-right: 8px; border-radius: 4px; filter: brightness(1.2);">About FinanVita</h2>
+                <div class="loan-detail-section">
+                    <p>**FinanVita** is a modern, digital-first financial services platform built to simplify and empower every individual's financial journey. Our mission is to make finance accessible, transparent, and hassle-free through the power of technology and personalized support.</p>
+                    <p>With a seamless user experience, real-time application tracking, and a strong advisor network, FinanVita bridges the gap between people and the financial support they need. Whether you're a customer looking for guidance or an advisor aiming to grow, FinanVita provides the tools, trust, and technology to help you move forward with confidence.</p>
+                    
+                    <h3>🔹 Why FinanVita?</h3>
+                    <ul>
+                        <li>**100% digital process** with smart automation</li>
+                        <li>Secure and **transparent workflows**</li>
+                        <li>**Customer and advisor-friendly dashboards**</li>
+                        <li>Dedicated **support and guidance** at every step</li>
+                    </ul>
+                    <p>At FinanVita, we believe that the right financial support can change lives — and we’re here to be that support.</p>
+                </div>
+            </section>
+
+        </section>
+
+    </main>
+
+    <footer id="contact-footer">
+        <p>&copy; 2025 FinanVita. All rights reserved.</p>
+        <p>
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Service</a> |
+            <a href="#contact-footer">Contact Us</a>
+        </p>
+        <div class="contact-info">
+            <p><strong>Contact Us</strong></p>
+            <p>Email: info@finanvita.com</p>
+            <p>Phone: +91-9376555577</p>
+            <p>Address: 2nd Floor Gate no -2 Nandwana Mansion Sansar chand Road Jaipur 302001, Rajasthan, India</p>
+        </div>
+    </footer>
+
+    <script>
+        // EMI Calculator Function (Unchanged)
+        function calculateEMI(loanType) {
+            const loanAmountInput = document.getElementById(`${loanType}_loanAmount_calc`);
+            const interestRateInput = document.getElementById(`${loanType}_interestRate_calc`);
+            const tenureInput = document.getElementById(`${loanType}_tenure_calc`);
+            const resultDiv = document.getElementById(`${loanType}_emiResult`);
+
+            const P = parseFloat(loanAmountInput.value);
+            const R_annual = parseFloat(interestRateInput.value);
+            let N_years = parseFloat(tenureInput.value);
+
+            if (isNaN(P) || isNaN(R_annual) || isNaN(N_years) || P <= 0 || R_annual < 0 || N_years <= 0) {
+                resultDiv.innerHTML = "Please enter valid numbers for all fields.";
+                resultDiv.classList.remove('show');
+                resultDiv.style.color = "#FF6347"; /* Brighter red for error */
+                resultDiv.style.borderColor = "#FF6347";
+                setTimeout(() => resultDiv.classList.add('show'), 50);
+                return;
+            }
+
+            let N_months;
+            if (loanType === 'gold' || loanType === 'credit-card') {
+                N_months = N_years; // Tenure in months directly for these types
+            } else {
+                N_months = N_years * 12; // Tenure in years, convert to months
+            }
+            
+            const R_monthly = R_annual / (12 * 100);
+
+            let emi;
+            if (R_monthly === 0) {
+                emi = P / N_months;
+            } else {
+                emi = P * R_monthly * Math.pow(1 + R_monthly, N_months) / (Math.pow(1 + R_monthly, N_months) - 1);
+            }
+
+            if (isNaN(emi) || !isFinite(emi)) {
+                 resultDiv.innerHTML = "Error calculating EMI. Please check inputs.";
+                 resultDiv.classList.remove('show');
+                 resultDiv.style.color = "#FF6347";
+                 resultDiv.style.borderColor = "#FF6347";
+                 setTimeout(() => resultDiv.classList.add('show'), 50);
+                 return;
+            }
+
+            resultDiv.innerHTML = `Your Estimated EMI: <span>₹${emi.toFixed(2)}</span>`;
+            resultDiv.classList.remove('show');
+            resultDiv.style.color = "#4CAF50"; /* Green for success */
+            resultDiv.style.borderColor = "#4CAF50";
+            setTimeout(() => resultDiv.classList.add('show'), 50); // Show with animation
+
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // WhatsApp Form Submission Function (Unchanged)
+        function handleFormSubmission(event, loanType) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const phoneNumber = "917647938055"; // WhatsApp number
+
+            let title;
+            if (loanType === 'agent-advisor') {
+                title = 'Agent & Advisor Application';
+            } else {
+                // Capitalize first letter and handle hyphens
+                title = `Loan Application - ${loanType.charAt(0).toUpperCase() + loanType.slice(1).replace(/-/g, ' ')} Loan`;
+            }
+            let message = `*${title}*\n\n`; // Bold title
+
+            // Iterate over form data to build the message
+            for (let [name, value] of formData.entries()) {
+                if (!value || value.trim() === '') {
+                    continue; // Skip empty fields
+                }
+                if (name === 'pan') { // Example: skip PAN if not to be sent
+                    continue;
+                }
+
+                // Format field names for better readability in WhatsApp
+                let formattedName = name.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                formattedName = formattedName.replace(/_/g, ' '); // Replace underscores with spaces
+
+                // Specific formatting for certain fields
+                switch(name) {
+                    case 'fullName': formattedName = 'Full Name'; break;
+                    case 'email': formattedName = 'Email Address'; break;
+                    case 'phone': formattedName = 'Phone Number'; break;
+                    case 'city': formattedName = 'City/State'; break;
+                    case 'loanAmount': formattedName = 'Desired Loan Amount'; break;
+                    case 'employmentType': formattedName = 'Employment Type'; break;
+                    case 'monthlyIncome': formattedName = 'Monthly Net Income'; break;
+                    case 'occupation': formattedName = 'Occupation/Profession'; break;
+                    case 'propertyType': formattedName = 'Property Type'; break;
+                    case 'propertyValue': formattedName = 'Approx. Property Value'; break;
+                    case 'annualIncome': formattedName = 'Annual Income'; break;
+                    case 'businessName': formattedName = 'Business Name'; break;
+                    case 'businessType': formattedName = 'Business Type'; break;
+                    case 'annualTurnover': formattedName = 'Last Year\'s Annual Turnover'; break;
+                    case 'makeModel': formattedName = 'Car Make & Model'; break;
+                    case 'mfgYear': formattedName = 'Manufacturing Year'; break;
+                    case 'carValue': formattedName = 'Approx. Car Value'; break;
+                    case 'carExShowroom': formattedName = 'Car Ex-Showroom Price'; break;
+                    case 'courseName': formattedName = 'Course Name'; break;
+                    case 'instituteName': formattedName = 'Institute Name'; break;
+                    case 'studyLocation': formattedName = 'Study Location'; break;
+                    case 'goldType': formattedName = 'Type of Gold'; break;
+                    case 'goldWeight': formattedName = 'Approx. Gold Weight (grams)'; break;
+                    case 'purpose': formattedName = 'Purpose of Loan'; break;
+                    case 'currentLoanType': formattedName = 'Current Loan Type'; break;
+                    case 'outstandingAmount': formattedName = 'Outstanding Loan Amount'; break;
+                    case 'currentEMI': formattedName = 'Current EMI'; break;
+                    case 'propertyAddress': formattedName = 'Property Address'; break;
+                    case 'practiceYears': formattedName = 'Years in Practice'; break;
+                    case 'profession': formattedName = 'Profession'; break;
+                    case 'experience': formattedName = 'Relevant Experience'; break;
+
+                    // Add Indian Rupee formatting for currency values
+                    case 'loanAmount':
+                    case 'monthlyIncome':
+                    case 'propertyValue':
+                    case 'annualIncome':
+                    case 'annualTurnover':
+                    case 'carValue':
+                    case 'carExShowroom':
+                    case 'outstandingAmount':
+                    case 'currentEMI':
+                        value = `₹${parseFloat(value).toLocaleString('en-IN')}`;
+                        break;
+                }
+                
+                message += `*${formattedName}:* ${value}\n`;
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+            alert('Your application details will open in WhatsApp. Please click "Send" to complete the submission.');
+            form.reset(); // Clear the form after submission
+        }
+
+
+        // Function to show/hide loan details based on hash
+        function showLoanDetailsFromHash() {
+            const hash = window.location.hash.substring(1);
+            const allDetailContents = document.querySelectorAll('.loan-details-content');
+            
+            allDetailContents.forEach(content => {
+                // Instantly hide elements not being activated for clean switch
+                if (content.id !== hash) {
+                    content.classList.remove('active');
+                    // Hide any active EMI results when switching sections
+                    const emiResultDiv = content.querySelector('.emi-result');
+                    if (emiResultDiv) {
+                        emiResultDiv.classList.remove('show');
+                    }
+                }
+            });
+
+            if (hash) {
+                const targetDetailContent = document.getElementById(hash);
+                if (targetDetailContent) {
+                    // Add active class after a tiny delay for CSS transition to kick in
+                    setTimeout(() => {
+                        targetDetailContent.classList.add('active');
+                        // Scroll to the top of the detail section
+                        targetDetailContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 50); // Small delay
+                }
+            }
+            closeSideNav(); // Close side nav if opened
+        }
+
+        window.addEventListener('hashchange', showLoanDetailsFromHash);
+        document.addEventListener('DOMContentLoaded', showLoanDetailsFromHash);
+
+        // Event listeners for "Check Eligibility" buttons
+        document.querySelectorAll('.loan-item a.button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                window.location.hash = this.getAttribute('href');
+            });
+        });
+
+        // Side Navigation Functions
+        const sideNav = document.getElementById("sideNav");
+        const menuIcon = document.getElementById("menuIcon");
+        const closeBtn = document.querySelector(".close-btn");
+        const body = document.body;
+
+        function openSideNav() {
+            sideNav.classList.add("open");
+            body.classList.add("no-scroll");
+            menuIcon.classList.add("active");
+        }
+
+        function closeSideNav() {
+            sideNav.classList.remove("open");
+            body.classList.remove("no-scroll");
+            menuIcon.classList.remove("active");
+        }
+
+        menuIcon.addEventListener('click', openSideNav);
+        closeBtn.addEventListener('click', closeSideNav);
+
+        // Close side nav when a link inside it is clicked
+        document.querySelectorAll('#sideNav a').forEach(link => {
+            link.addEventListener('click', function() {
+                closeSideNav();
+                // If it's an anchor link, handle smooth scroll and showing content
+                if (this.getAttribute('href').startsWith('#')) {
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        // Ensure all others are hidden before showing the new one
+                        document.querySelectorAll('.loan-details-content').forEach(content => {
+                            content.classList.remove('active');
+                        });
+                        setTimeout(() => { // Small delay for smooth transition
+                            targetElement.classList.add('active');
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 50);
+                    }
+                }
+            });
+        });
+
+        // Add animated dots to the header
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedBackground = document.querySelector('.animated-background');
+            for (let i = 0; i < 5; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                dot.style.width = `${Math.random() * 50 + 30}px`;
+                dot.style.height = dot.style.width;
+                dot.style.left = `${Math.random() * 100}%`;
+                dot.style.top = `${Math.random() * 100}%`;
+                dot.style.animationDelay = `${Math.random() * 10}s`;
+                animatedBackground.appendChild(dot);
+            }
+        });
+    </script>
+
+</body>
+</html>
